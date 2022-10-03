@@ -1,19 +1,26 @@
 import logo from "./logo.svg";
 import "./App.css";
-import { useState, useEffect } from "react";
+import NavBarMain from "./NavBarMain";
+import NavBarLogin from "./NavBarLogin";
+import Home from "./Home";
+import { Routes, Route } from "react-router-dom";
+import Browse from "./Browse";
+import AddNewReview from "./AddNewReview";
+import LogIn from "./LogIn";
+import SignUp from "./SignUp";
 
 function App() {
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    fetch("/hello")
-      .then((r) => r.json())
-      .then((data) => setCount(data.count));
-  }, []);
-
   return (
     <div className="App">
-      <h1>Page Count: {count}</h1>
+      <NavBarLogin />
+      <NavBarMain />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/browse" element={<Browse />} />
+        <Route path="/add-new-review" element={<AddNewReview />} />
+        <Route path="/log-in" element={<LogIn />} />
+        <Route path="/sign-up" element={<SignUp />} />
+      </Routes>
     </div>
   );
 }
