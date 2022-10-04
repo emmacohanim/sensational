@@ -1,8 +1,18 @@
-import React from 'react'
+import React, {useState} from 'react'
 
 function LogIn() {
+
+    const [username, setUsername] = useState("")
+    const [password, setPassword] = useState("")
+
     return (
-        <p>Log In</p>
+        <div>
+            <form >
+                <input className='input' onChange = {(e) => setUsername(e.target.value)} value={username} type="text" username="username" placeholder="Enter your username"/>
+                <input className='input' onChange = {(e) => setPassword(e.target.value)} value={password} type="text" password="password" placeholder="Enter your password"/>
+                <button className='button' type="submit">Log In</button>
+            </form>
+        </div>
     )
 }
 

@@ -8,8 +8,12 @@ import Browse from "./Browse";
 import AddNewReview from "./AddNewReview";
 import LogIn from "./LogIn";
 import SignUp from "./SignUp";
-
+import {useState, useEffect} from "react"
 function App() {
+
+  const [perfumes, setPerfumes] = useState([])
+  const [reviews, setReviews] = useState([])
+
   return (
     <div className="App">
       <NavBarLogin />
