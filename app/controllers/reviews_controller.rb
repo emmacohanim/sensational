@@ -7,15 +7,19 @@ class ReviewsController < ApplicationController
     end
 
     def create 
-        user = User.first
-        review = user.reviews.create!(review_params)
+    
+        review = current_user.reviews.create!(review_params)
         render json: review, status: :created
     end
 
     def update
         review = Review.find(params[:id])
-        review.update(update_params)
-        render json: review, status: :accepted
+        if review.user == current_user
+            review.update!(update_params)
+            render json: review, status: :accepted
+        else
+            render json: {error: "Not allowed"}
+        end
     end
 
     def destroy
