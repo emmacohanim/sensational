@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import PerfumeForm from "./PerfumeForm";
 
 function AddNewReview() {
@@ -57,15 +57,13 @@ function AddNewReview() {
           rating: rating,
           comment: comment,
           image: image,
-          wouldBuyAgain: wouldBuyAgain,
-          perfumeId: perfumeId,
+          would_buy_again: wouldBuyAgain,
+          perfume_id: perfumeId,
         }),
       })
-        .then((r) => r.json())
-        .then((newReview) => {
-          navigate.push("/browse");
-        });
+        .then((r) => r.json());
     }
+    navigate.push("/browse")
   }
 
   return (

@@ -8,11 +8,19 @@ import Browse from "./Browse";
 import AddNewReview from "./AddNewReview";
 import LogIn from "./LogIn";
 import SignUp from "./SignUp";
-import {useState, useEffect} from "react"
+import React, { useEffect, useState } from "react"
+
 function App() {
 
-  const [perfumes, setPerfumes] = useState([])
-  const [reviews, setReviews] = useState([])
+    const [user, setUser] = useState(null);
+  //   useEffect(() => {    // auto-login    
+  //     fetch('/me').then((r) => {      
+  //       if (r.ok) {        
+  //         r.json().then((user) => setUser(user));      
+  //       }    
+  //     });  
+  //   }, []);
+  // if (!user) return <LogIn onLogin={setUser} />;
 
   return (
     <div className="App">
@@ -23,7 +31,7 @@ function App() {
         <Route path="/browse" element={<Browse />} />
         <Route path="/add-new-review" element={<AddNewReview />} />
         <Route path="/log-in" element={<LogIn />} />
-        <Route path="/sign-up" element={<SignUp />} />
+        <Route path="/sign-up" element={<SignUp onLogin={setUser} />} />
       </Routes>
     </div>
   );
