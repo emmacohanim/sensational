@@ -1,27 +1,37 @@
 import React, {useState, useEffect} from 'react'
+import {useNavigate} from 'react-router-dom'
 import ReviewCard from './ReviewCard'
 
-function Browse() {
+function Browse({reviews, setReviews, currentUser}) {
 
-    const [reviews, setReviews] = useState([])
+    
+    const navigate = useNavigate()
 
     useEffect(() => {
-        fetch("/reviews")
-        .then(response => response.json())
-        .then((reviews) => {
-            reviews.forEach(r => {
-                r.wouldBuyAgain = r.would_buy_again
-                delete r.would_buy_again
-            })
-            setReviews(reviews)
-        })
-    }, [])
+        navigate("/browse")
+    }, [reviews])
+
+    function handleDeleteReview(id) {
+        const updateReviewsArray = reviews.filter((review) => review.id !== id)
+        setReviews(updateReviewsArray)
+    }
+
+    function handleEditReview(editedReview) {
+        setReviews((reviews) => reviews.map(review => {
+            if (review.id == editedReview.id) {
+                return editedReview
+            } else {
+                return review
+            }
+        }))
+    }
+    
 
     return (
         <div>
             {reviews.map((review) => {
                 return (
-                    <ReviewCard key={review.id} review={review} />
+                    <ReviewCard key={review.id} review={review} handleDeleteReview={handleDeleteReview} currentUser={currentUser} handleEditReview={handleEditReview}/>
             )})}
         </div>
     )

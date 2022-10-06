@@ -1,19 +1,55 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 
-function ReviewCard({review}) {
+function ReviewCard({review, handleEditReview, handleDeleteReview, currentUser}) {
 
-    const { rating, comment, image, wouldBuyAgain, perfume, user} = review;
+    const {id, rating, comment, image, wouldBuyAgain, perfume, user} = review;
+    const [editedRating, setEditedRating] = useState(rating)
+    const [editedComment, setEditedComment] = useState(comment)
 
-    console.log(review)
+    function handleEditClick() {
+        fetch(`/reviews/${review.id}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                rating: editedRating,
+                comment: editedComment
+            }),
+        })
+        .then((r) => r.json())
+        .then((editedReview) => handleEditReview(editedReview))
+    }
+
+    function handleDeleteClick() {
+        fetch(`/reviews/${review.id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        }
+        )
+        handleDeleteReview(id)
+    }
+
+    
     return (
-        <div>
-            <h2>{perfume.name} | {perfume.brand}</h2>
-            <h2>Rating: {rating}</h2>
-            <h2>Comment: {comment}</h2>
-            <h2>Would You Buy Again? {wouldBuyAgain ? "Yes" : "No"}</h2>
-            <p>Created by: {user.username}</p>
-            <img src={image} alt={perfume.name}/>
+        <div className="card">
+            <div id="container">
+                {currentUser.id === review.user_id ? <div className="editDelete">
+                    <button className= "button" onClick={handleDeleteClick}>Delete</button>
+                    <button className= "button" onClick={handleEditClick}>Edit</button>
+                </div> : null }
+                <div className="reviewTextAll">
+                    <h2>{perfume.name} | {perfume.brand}</h2>
+                    <p className="reviewText"><b>Rating:</b><span contentEditable={currentUser.id === review.user_id} onInput={e => {setEditedRating(e.target.textContent)}}>{rating}</span></p>
+                    <p className="reviewText"><b>Comment:</b><span contentEditable={currentUser.id === review.user_id} onInput={e => {setEditedComment(e.target.textContent)}}> {comment}</span></p>
+                    <p className="reviewText"><b>Would You Buy Again? </b> {wouldBuyAgain ? "Yes" : "No"}</p>
+                    <p className="reviewText"><b>Created by:</b> {user.username}</p>
+                </div> 
+                <img src={image} alt={perfume.name} className="image"/>
+            </div>
         </div>
     )
 }

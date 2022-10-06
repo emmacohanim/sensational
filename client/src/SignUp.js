@@ -1,7 +1,13 @@
-import React, {useState} from 'react'
-
-function SignUp({onLogin}) {
-
+import React, {useState, useEffect} from 'react'
+import {useNavigate} from 'react-router-dom'
+function SignUp({onLogin, isLoggedIn}) {
+const navigate = useNavigate()
+useEffect(()=>{
+    if (isLoggedIn) {
+        navigate("/browse")
+    }
+}, [isLoggedIn])
+    
 const [username, setUsername] = useState("")
 const [password, setPassword] = useState("")
 const [passwordConfirmation, setPasswordConfirmation] = useState("")

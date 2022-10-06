@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
+import {useNavigate} from 'react-router-dom';
 import PerfumeForm from "./PerfumeForm";
 
-function AddNewReview() {
+
+function AddNewReview({ addNewReviewToArray}) {
   const [rating, setRating] = useState("");
   const [comment, setComment] = useState("");
   const [image, setImage] = useState("");
@@ -44,8 +45,8 @@ function AddNewReview() {
             ],
           },
         }),
-      }).then((r) => r.json());
-      // .then((newPerfumeReview) => addNewPerfumeReview(newPerfumeReview))
+      }).then((r) => r.json())
+      .then((newReview) => addNewReviewToArray(newReview)) 
     } else {
       fetch("/reviews", {
         method: "POST",
@@ -61,9 +62,13 @@ function AddNewReview() {
           perfume_id: perfumeId,
         }),
       })
-        .then((r) => r.json());
+        .then((r) => r.json())
+        .then((newReview) => { 
+            newReview.wouldBuyAgain = newReview.would_buy_again
+            delete newReview.would_buy_again
+            addNewReviewToArray(newReview)})
+            navigate("/browse")
     }
-    navigate.push("/browse")
   }
 
   return (
@@ -73,7 +78,6 @@ function AddNewReview() {
         <select
           onChange={(e) => setPerfumeId(e.target.value)}
           name="perfumes"
-          className="button"
           value={perfumeId}
         >
           <option disabled value="">
@@ -128,7 +132,7 @@ function AddNewReview() {
             setBrand={setBrand}
           />
         ) : null}
-        <button className="button" type="submit">
+        <button type="submit">
           Create Review
         </button>
       </form>

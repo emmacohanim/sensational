@@ -11,27 +11,62 @@ import SignUp from "./SignUp";
 import React, { useEffect, useState } from "react"
 
 function App() {
-
+    const [reviews, setReviews] = useState([])
     const [user, setUser] = useState(null);
-  //   useEffect(() => {    // auto-login    
-  //     fetch('/me').then((r) => {      
-  //       if (r.ok) {        
-  //         r.json().then((user) => setUser(user));      
-  //       }    
-  //     });  
-  //   }, []);
-  // if (!user) return <LogIn onLogin={setUser} />;
+    
+    function addNewReviewToArray(newReview) {
+      setReviews([...reviews, newReview])
+    }
+ 
+  useEffect(() => {
+    fetch('/me').then(r=>r.json().then(data => {
+      if (r.ok){
+      setUser(data);
+      }
+    }))
+  }, [])
+
+  function handleLogoutClick() {
+    fetch("/logout", { method: "DELETE" }).then((r) => {
+      if (r.ok) {
+        setUser(null);
+      }
+    });
+  }
+
+  useEffect(() => {
+    fetch("/reviews")
+    .then(response => response.json())
+    .then((reviews) => {
+        reviews.forEach(r => {
+            r.wouldBuyAgain = r.would_buy_again
+            delete r.would_buy_again
+        })
+        setReviews(reviews)
+    })
+}, [])
+
+  // function showLogout() {
+  //   if (user) {
+  //     return (
+  //       <div className="logout">
+  //         <button onClick={handleLogoutClick}>Logout</button>
+  //       </div>
+  //     )
+  //   }
+  // }
 
   return (
     <div className="App">
+      <button onClick={handleLogoutClick}>Logout</button>
       <NavBarLogin />
       <NavBarMain />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/browse" element={<Browse />} />
-        <Route path="/add-new-review" element={<AddNewReview />} />
-        <Route path="/log-in" element={<LogIn />} />
-        <Route path="/sign-up" element={<SignUp onLogin={setUser} />} />
+        <Route path="/browse" element={<Browse reviews={reviews} setReviews={setReviews} currentUser={user}/>} />
+        <Route path="/add-new-review" element={<AddNewReview reviews={reviews} addNewReviewToArray={addNewReviewToArray}/>} />
+        <Route path="/log-in" element={<LogIn onLogin={setUser} isLoggedIn={!!user}/>} />
+        <Route path="/sign-up" element={<SignUp onLogin={setUser} isLoggedIn={!!user} />} />
       </Routes>
     </div>
   );

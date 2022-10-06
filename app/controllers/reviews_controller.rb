@@ -8,14 +8,14 @@ class ReviewsController < ApplicationController
 
     def create
         review = current_user.reviews.create!(review_params)
-        render json: review, status: :created
+        render json: review, include: [:perfume, :user], status: :created
     end
 
     def update
         review = Review.find(params[:id])
         if review.user == current_user
             review.update!(update_params)
-            render json: review, status: :accepted
+            render json: review, include: [:perfume, :user], status: :accepted
         else
             render json: {error: "Not allowed"}
         end
@@ -29,12 +29,11 @@ class ReviewsController < ApplicationController
 
     def show
         review = Review.find(params[:id])
-        render json: review
+        render json: review, include: [:perfume, :user]
     end
 
     private
 
-    
 
     def review_params
         params.permit(:perfume_id, :rating, :comment, :would_buy_again, :image)
