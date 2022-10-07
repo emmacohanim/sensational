@@ -3,7 +3,8 @@ import {useNavigate} from 'react-router-dom';
 import PerfumeForm from "./PerfumeForm";
 
 
-function AddNewReview({ addNewReviewToArray}) {
+
+function AddNewReview({ addNewReviewToArray, isLoggedIn}) {
   const [rating, setRating] = useState("");
   const [comment, setComment] = useState("");
   const [image, setImage] = useState("");
@@ -70,6 +71,15 @@ function AddNewReview({ addNewReviewToArray}) {
             navigate("/browse")
     }
   }
+
+  useEffect(()=>{
+    if (!isLoggedIn) {
+        navigate("/log-in")
+        // return (
+        //   <p>Please log in before creating a new review</p>
+        // )
+    }
+}, [isLoggedIn])
 
   return (
     <div>

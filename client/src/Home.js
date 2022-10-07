@@ -4,8 +4,7 @@ function Home() {
 
     return (
         <div id="home-div">
-            <h1>Scentsational</h1>
-            <p>About section</p>
+            <h1 id="site-title">Scentsational</h1>
         </div>
     )
 }

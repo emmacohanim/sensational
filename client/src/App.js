@@ -9,8 +9,12 @@ import AddNewReview from "./AddNewReview";
 import LogIn from "./LogIn";
 import SignUp from "./SignUp";
 import React, { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom";
+
 
 function App() {
+
+    const navigate = useNavigate()
     const [reviews, setReviews] = useState([])
     const [user, setUser] = useState(null);
     
@@ -31,7 +35,9 @@ function App() {
       if (r.ok) {
         setUser(null);
       }
-    });
+
+    })
+    navigate("/")
   }
 
   useEffect(() => {
@@ -58,15 +64,15 @@ function App() {
 
   return (
     <div className="App">
-      <button onClick={handleLogoutClick}>Logout</button>
+      <button id="log-out" onClick={handleLogoutClick}>Logout</button>
       <NavBarLogin />
       <NavBarMain />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/browse" element={<Browse reviews={reviews} setReviews={setReviews} currentUser={user}/>} />
-        <Route path="/add-new-review" element={<AddNewReview reviews={reviews} addNewReviewToArray={addNewReviewToArray}/>} />
-        <Route path="/log-in" element={<LogIn onLogin={setUser} isLoggedIn={!!user}/>} />
-        <Route path="/sign-up" element={<SignUp onLogin={setUser} isLoggedIn={!!user} />} />
+        <Route className="route" path="/" element={<Home />} />
+        <Route className="route" path="/browse" element={<Browse reviews={reviews} setReviews={setReviews} currentUser={user}/>} />
+        <Route className="route" path="/add-new-review" element={<AddNewReview reviews={reviews} addNewReviewToArray={addNewReviewToArray} isLoggedIn={!!user}/>} />
+        <Route className="route" path="/log-in" element={<LogIn onLogin={setUser} isLoggedIn={!!user}/>} />
+        <Route className="route" path="/sign-up" element={<SignUp onLogin={setUser} isLoggedIn={!!user} />} />
       </Routes>
     </div>
   );

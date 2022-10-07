@@ -1,15 +1,20 @@
 .App {
   text-align: center;
-  /* background-image: url(“client/public/perfume.png”);
+}
+
+body {
+  margin-top: 20px;
+  background-image: url(https://www.makeup.com/-/media/project/loreal/brand-sites/mdc/americas/us/articles/2019/09_september/12-fragrance-last-longer/how-to-make-your-fragrance-last-longer-hero-mudc-091219.jpg?w=400&h=300&blr=False&hash=47F3514AB290FAEB3FA95350DFF5F9A8);
   background-attachment: fixed;
   justify-content: center;
   background-repeat: repeat;
   display: grid;
-  grid-template-rows: 70px 400px 60px 600px;
+  margin-bottom: 35px;
+  /* grid-template-rows: 70px 400px 60px 600px;
   grid-template-columns: 400px 600px;
   row-gap: 30px;
   column-gap: 30px;
-  color-scheme: dark;
+  color-scheme: light;
   height: 100vh;
   height: 1750px; */
 }
@@ -50,10 +55,12 @@
 }
 
 .image {
-  width: 30%;
+  width: 40%;
   position: relative;
-  right: 250px;
+  right: 210px;
   bottom: 85px;
+  border: #282c34 solid 1px;
+
 }
 
 .reviewText {
@@ -67,9 +74,10 @@
   margin-left: auto;
   margin-right: auto;
   margin-top: 40px;
-  background-color:cornflowerblue !important;
+  background-color: #f9f5e4 !important;
   box-align: center;
   margin-top: 50px;
+  
 }
 
 /* On mouse-over, add a deeper shadow */
@@ -78,7 +86,7 @@
 }
 
 .button {
-  background-color:mediumpurple;
+  background-color:rgb(93, 92, 94);
   height: 25px;
   font-size: 20px;
   color: white;
@@ -89,7 +97,7 @@
   /* margin-top: auto; */
 }
 
-#container {
+.container {
   padding: 20px 10px;
 }
 
@@ -100,5 +108,46 @@
 
 .reviewTextAll {
   text-align: center;
+  margin-left: 330px;
+  width: 60%;
+  position: relative;
 }
+
+#log-out {
+  margin-left: 2400px;
+}
+
+#site-title {
+  font-size: 300px;
+  color: white;
+  text-shadow:  0 6px rgb(0, 0, 0);
+  font-family: 'Kaushan Script', cursive;
+}
+
+.link {
+  float: center;
+  padding: 0.5rem 1rem;
+  margin: 0 1rem;
+  text-decoration: none;
+  font-size: 1.2em;
+  color: rgb(0, 0, 0);
+  border-bottom: 2px solid rgb(0, 0, 0);
+  transition: 0.1s;
+}
+
+.link-login {
+  float: left;
+  padding: 0.5rem 1rem;
+  margin: 0 1rem;
+  text-decoration: none;
+  font-size: 1.2em;
+  color: rgb(0, 0, 0);
+  border-bottom: 2px solid rgb(0, 0, 0);
+  transition: 0.1s;
+}
+
+#nav-bar-main {
+  position: sticky;
+}
+
 

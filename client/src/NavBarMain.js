@@ -8,9 +8,9 @@ function NavBarMain() {
   return (
     <>
       <nav id="nav-bar-main">
-        <Link to="/">Home | </Link>
-        <Link to="/browse">Browse Reviews | </Link>
-        <Link to="/add-new-review">Add New Review</Link>
+        <Link className="link" to="/">Home</Link>
+        <Link className="link" to="/browse">Browse Reviews</Link>
+        <Link className="link" to="/add-new-review">Add New Review</Link>
       </nav>
     </>
   );
