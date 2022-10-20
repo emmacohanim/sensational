@@ -40,22 +40,10 @@ function handleSubmit(e) {
           r.json().then((err) => setErrors(err.errors));
         }
       });
-    // .then((r)=> {
-    //     if (r.ok) {
-    //         r.json().then(setCurrentUser)
-    //     } else {
-    //         r.json().then(e => setErrors(Object.entries(e.error).flat()))
-    //     }
-    // })
     
 }
 
     return (
-        // <form >
-        //         <input className='input' onChange = {(e) => setUsername(e.target.value)} value={username} type="text" username="username" placeholder="Enter new username"/>
-        //         <input className='input' onChange = {(e) => setPassword(e.target.value)} value={password} type="text" password="password" placeholder="Enter new password"/>
-        //         <button className='button' type="submit">Sign Up</button>
-        // </form>
         <form onSubmit={handleSubmit}>
             <label htmlFor="username">Username:</label>
             <input

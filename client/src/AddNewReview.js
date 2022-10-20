@@ -84,15 +84,18 @@ function AddNewReview({ addNewReviewToArray, isLoggedIn}) {
   return (
     <div>
       <h1>Add A New Review Here!</h1>
-      <form onSubmit={handleSubmit}>
+    
+      <form className="form" onSubmit={handleSubmit}>
         <select
+        name="rating"
+          value={rating}
           onChange={(e) => setPerfumeId(e.target.value)}
           name="perfumes"
           value={perfumeId}
         >
           <option disabled value="">
             {" "}
-            -- select an option --{" "}
+            -- select a perfume --{" "}
           </option>
           {perfumes.map((perfume) => {
             return (
@@ -109,7 +112,7 @@ function AddNewReview({ addNewReviewToArray, isLoggedIn}) {
           value={rating}
           type="text"
           rating="rating"
-          placeholder="Rate product on scale of 1-10"
+          placeholder="Rate on scale of 1-10"
         />
         <input
           className="input"
